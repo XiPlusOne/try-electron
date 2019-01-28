@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './PlayerControl.scss';
+import styles from './PlayerControl.less';
 
 type Props = {
   playing: boolean,

@@ -1,33 +1,38 @@
+.equilateral-triangle(@height) {
+  @topsize : sqrt(pow(@height / 3 * 2, 2) - pow(@height / 3, 2));
+
+  width: 0;
+  height: 0;
+  display: block;
+  border-left: @height solid #fff;
+  border-top: @topsize solid transparent;
+  border-right: @height solid transparent;
+  border-bottom: @topsize solid transparent;
+}
+
 .player {
   padding: 0 10px;
   margin: 0;
-  list-style-type: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
 
   .switch {
-    $triangleHeight: 15px;
-    // $borderTopSize² = ( $triangleHeight * 2 / 3 )² - ( $triangleHeight / 3 )²
-    $borderTopSize: 8.66px;
+    @height: 15px;
+    @borderTopSize: sqrt(pow(@height / 3 * 2, 2) - pow(@height / 3, 2));
 
     position: relative;
-    width: 0px;
-    height: 0px;
-    border-left: $triangleHeight solid #fff;
-    border-top: $borderTopSize solid transparent;
-    border-right: $triangleHeight solid transparent;
-    border-bottom: $borderTopSize solid transparent;
+    .equilateral-triangle(@height);
 
     &::after {
       content: '';
       display: block;
       position: absolute;
-      top: -$borderTopSize;
+      top: -@borderTopSize;
       left: 0;
       border-left: 1px solid #fff;
-      height: 2 * $borderTopSize;
+      height: 2 * @borderTopSize;
     }
 
     &.reverse {
@@ -36,17 +41,15 @@
   }
 
   .toggle {
-    $radius: 15px;
-    $range: 4px;
-    // $borderTopSize² = ( 2 * $range )² - $range²
-    // 因为Sass不支持开平方运算符，所以在这里先算好
-    $borderTopSize: 6.93px;
+    @radius: 15px;
+    @range: 4px;
+    @borderTopSize: sqrt(pow(@range * 2, 2) - pow(@range, 2));
 
     padding: 0;
     box-sizing: content-box;
     border: 1px solid #fff;
-    width: 2 * $radius;
-    height: 2 * $radius;
+    width: 2 * @radius;
+    height: 2 * @radius;
     border-radius: 50%;
     background: transparent;
     position: relative;
@@ -64,14 +67,9 @@
     }
 
     &.paused::before {
-      top: $radius - $borderTopSize;
-      left: $radius - $range;
-      width: 0px;
-      height: 0px;
-      border-left: $range * 3 solid #fff;
-      border-top: $borderTopSize solid transparent;
-      border-right: $range * 3 solid transparent;
-      border-bottom: $borderTopSize solid transparent;
+      top: @radius - @borderTopSize;
+      left: @radius - @range;
+      .equilateral-triangle(@radius - @range);
     }
 
     &.playing::before {

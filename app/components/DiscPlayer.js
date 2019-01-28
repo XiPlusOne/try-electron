@@ -1,8 +1,9 @@
 import React from 'react';
 import RodCreator from './Rod';
 import PlayerControl from './PlayerControl';
+import Player from './Player';
 import discPic from '../../resources/bg.jpg';
-import styles from './DiscPlayer.scss';
+import styles from './DiscPlayer.less';
 
 const rodStyles = { top: 35 };
 const Rod = RodCreator();
@@ -24,19 +25,9 @@ export default class DiscPlayer extends React.PureComponent {
   constructor(props: Props) {
     super(props);
 
-    // todo 这个应该下方到一个组件里，总控组件不直接操作dom
-    this.refAudio = React.createRef();
     this.toggleRunning = this.toggleRunning.bind(this);
     this.onRodOn = this.onRodOn.bind(this);
-    this.playMusic = this.playMusic.bind(this);
-    this.pauseMusic = this.pauseMusic.bind(this);
     this.musicEnd = this.musicEnd.bind(this);
-  }
-
-  componentDidMount() {
-    const audioContext = new AudioContext();
-    const track = audioContext.createMediaElementSource(this.refAudio.current);
-    track.connect(audioContext.destination);
   }
 
   toggleRunning() {
@@ -46,19 +37,9 @@ export default class DiscPlayer extends React.PureComponent {
       // 探针移开时音乐立即停止播放
       rodOff();
       discStopSpin();
-      this.pauseMusic();
     } else {
       rodOn();
-      this.playMusic();
     }
-  }
-
-  playMusic() {
-    this.refAudio.current.play();
-  }
-
-  pauseMusic() {
-    this.refAudio.current.pause();
   }
 
   musicEnd() {
@@ -106,16 +87,9 @@ export default class DiscPlayer extends React.PureComponent {
             onToggleCallback={this.toggleRunning}
             playing={isRodOn}
           />
-
-          <audio
-            src="D:\Projects\try-electron\resources\bg.flac"
-            preload="auto"
-            ref={this.refAudio}
-            onEnded={this.musicEnd}
-          >
-            <track default kind="captions" label="Hello World!" />
-          </audio>
         </footer>
+
+        <Player onMusicEnd={this.musicEnd} isPlaying={isRodOn} />
       </div>
     );
   }

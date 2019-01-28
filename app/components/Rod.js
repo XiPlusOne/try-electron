@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Rod.scss';
+import styles from './Rod.less';
 
 type Radian = number;
 type Size = number;

@@ -7,24 +7,24 @@
   overflow: hidden;
 
   b {
-    $radius: 25px;
+    @radius: 25px;
 
     position: absolute;
     display: block;
-    width: 2 * $radius;
-    height: $radius;
-    border-bottom-left-radius: $radius;
-    border-bottom-right-radius: $radius;
+    width: 2 * @radius;
+    height: @radius;
+    border-bottom-left-radius: @radius;
+    border-bottom-right-radius: @radius;
     left: 50%;
     transform: translateX(-50%);
     background: radial-gradient(
       circle at top,
       #ccc,
-      #ccc $radius * 0.25,
-      #fff $radius * 0.25,
-      #fff $radius * 0.75,
-      rgba(255, 255, 255, 0.2) $radius * 0.8,
-      rgba(255, 255, 255, 0.2) $radius
+      #ccc @radius * 0.25,
+      #fff @radius * 0.25,
+      #fff @radius * 0.75,
+      rgba(255, 255, 255, 0.2) @radius * 0.8,
+      rgba(255, 255, 255, 0.2) @radius
     );
     z-index: 2;
   }
