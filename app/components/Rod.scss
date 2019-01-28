@@ -1,0 +1,46 @@
+.probe {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  overflow: hidden;
+
+  b {
+    $radius: 25px;
+
+    position: absolute;
+    display: block;
+    width: 2 * $radius;
+    height: $radius;
+    border-bottom-left-radius: $radius;
+    border-bottom-right-radius: $radius;
+    left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(
+      circle at top,
+      #ccc,
+      #ccc $radius * 0.25,
+      #fff $radius * 0.25,
+      #fff $radius * 0.75,
+      rgba(255, 255, 255, 0.2) $radius * 0.8,
+      rgba(255, 255, 255, 0.2) $radius
+    );
+    z-index: 2;
+  }
+
+  canvas {
+    display: block;
+    transform-origin: top;
+    z-index: 1;
+    transition: transform 1s linear;
+
+    &.on {
+      transform: rotate(30deg);
+    }
+
+    &.off {
+      transform: rotate(0deg);
+    }
+  }
+}

@@ -1,0 +1,96 @@
+.container {
+  &::before {
+    content: '';
+    display: block;
+    background: url('../../resources/bg.jpg') no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    filter: blur(10px);
+  }
+
+  header {
+    line-height: 35px;
+    text-align: center;
+    border-bottom: 0.5px solid #ccc;
+    color: #fff;
+  }
+
+  main {
+    margin-top: 115px;
+
+    .inner {
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 500px;
+      width: 500px;
+      background: repeating-radial-gradient(
+        #111,
+        #111 5px,
+        #222 5px,
+        #222 10px
+      );
+      border-radius: 50%;
+      border: 10px solid #666;
+      position: relative;
+      box-shadow: -24px 24px 24px 12px rgba(0, 0, 0, 0.5);
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: -10px;
+        right: -10px;
+        top: -10px;
+        bottom: -10px;
+        border-radius: 50%;
+        background: radial-gradient(
+          farthest-corner at 100% 0,
+          rgba(255, 255, 255, 0.5),
+          transparent 50%
+        );
+      }
+    }
+
+    img {
+      height: 290px;
+      border-radius: 50%;
+      border: 10px solid #000;
+      animation: spinning infinite 10s linear;
+
+      &.paused {
+        animation-play-state: paused;
+      }
+
+      &.spinning {
+        animation-play-state: running;
+      }
+    }
+  }
+
+  footer {
+    height: 60px;
+    border-top: 0.5px solid #ccc;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+@keyframes spinning {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

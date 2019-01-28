@@ -1,0 +1,97 @@
+.player {
+  padding: 0 10px;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+
+  .switch {
+    $triangleHeight: 15px;
+    // $borderTopSize² = ( $triangleHeight * 2 / 3 )² - ( $triangleHeight / 3 )²
+    $borderTopSize: 8.66px;
+
+    position: relative;
+    width: 0px;
+    height: 0px;
+    border-left: $triangleHeight solid #fff;
+    border-top: $borderTopSize solid transparent;
+    border-right: $triangleHeight solid transparent;
+    border-bottom: $borderTopSize solid transparent;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -$borderTopSize;
+      left: 0;
+      border-left: 1px solid #fff;
+      height: 2 * $borderTopSize;
+    }
+
+    &.reverse {
+      transform: rotate(180deg);
+    }
+  }
+
+  .toggle {
+    $radius: 15px;
+    $range: 4px;
+    // $borderTopSize² = ( 2 * $range )² - $range²
+    // 因为Sass不支持开平方运算符，所以在这里先算好
+    $borderTopSize: 6.93px;
+
+    padding: 0;
+    box-sizing: content-box;
+    border: 1px solid #fff;
+    width: 2 * $radius;
+    height: 2 * $radius;
+    border-radius: 50%;
+    background: transparent;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+
+    &:active {
+      animation: flash 0.05s ease-out;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+    }
+
+    &.paused::before {
+      top: $radius - $borderTopSize;
+      left: $radius - $range;
+      width: 0px;
+      height: 0px;
+      border-left: $range * 3 solid #fff;
+      border-top: $borderTopSize solid transparent;
+      border-right: $range * 3 solid transparent;
+      border-bottom: $borderTopSize solid transparent;
+    }
+
+    &.playing::before {
+      border-left: 1.5px solid #fff;
+      border-right: 1.5px solid #fff;
+      width: 5px;
+      height: 10px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+@keyframes flash {
+  from {
+    transform: scale(1.1);
+  }
+
+  to {
+    transform: rotate(1);
+  }
+}
