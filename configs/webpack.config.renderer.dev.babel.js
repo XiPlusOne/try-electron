@@ -139,7 +139,7 @@ export default merge.smart(baseConfig, {
           }
         ]
       },
-      // LESS support - compile all .global.scss files and pipe it to style.css
+      // LESS support - compile all .global.less files and pipe it to style.css
       {
         test: /\.global\.less$/,
         use: [
@@ -157,7 +157,7 @@ export default merge.smart(baseConfig, {
           }
         ]
       },
-      // LESS support - compile all other .scss files and pipe it to style.css
+      // LESS support - compile all other .less files and pipe it to style.css
       {
         test: /^((?!\.global).)*\.less$/,
         use: [
