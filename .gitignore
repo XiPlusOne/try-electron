@@ -66,6 +66,7 @@ main.js
 main.js.map
 
 .idea
+.vscode
 npm-debug.log.*
 © 2019 GitHub, Inc.
 Terms
