@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Player component should match exact snapshot 1`] = `
+<audio
+  onEnded={[Function]}
+  preload="auto"
+  src="D:\\\\Projects\\\\try-electron\\\\resources\\\\bg.flac"
+>
+  <track
+    default={true}
+    kind="captions"
+    label="Hello World!"
+  />
+</audio>
+`;

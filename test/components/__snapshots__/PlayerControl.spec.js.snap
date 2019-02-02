@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlayerControl component should match exact snapshot 1`] = `
+<div
+  className="player"
+>
+  <b
+    className="switch reverse"
+  />
+  <button
+    className="toggle paused"
+    onClick={[Function]}
+    type="button"
+  />
+  <b
+    className="switch"
+  />
+</div>
+`;

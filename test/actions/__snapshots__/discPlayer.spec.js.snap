@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions should discStartSpin should create discStartSpin action 1`] = `
+Object {
+  "type": "DISC_START_SPIN",
+}
+`;
+
+exports[`actions should discStopSpin should create discStopSpin action 1`] = `
+Object {
+  "type": "DISC_STOP_SPIN",
+}
+`;
+
+exports[`actions should rodOff should create rodOff action 1`] = `
+Object {
+  "type": "ROD_OFF",
+}
+`;
+
+exports[`actions should rodOn should create rodOn action 1`] = `
+Object {
+  "type": "ROD_ON",
+}
+`;

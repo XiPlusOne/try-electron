@@ -1,12 +1,13 @@
 import React from 'react';
-import RodCreator from './Rod';
+import Rod from './Rod';
+import createPainter from '../utils/rodPainter';
 import PlayerControl from './PlayerControl';
 import Player from './Player';
 import discPic from '../../resources/bg.jpg';
 import styles from './DiscPlayer.less';
 
 const rodStyles = { top: 35 };
-const Rod = RodCreator();
+const painter = createPainter();
 
 type Props = {
   discStartSpin: () => void,
@@ -69,6 +70,7 @@ export default class DiscPlayer extends React.PureComponent {
             isRodOn={isRodOn}
             rodOnCallback={this.onRodOn}
             style={rodStyles}
+            painter={painter}
           />
         </header>
 
