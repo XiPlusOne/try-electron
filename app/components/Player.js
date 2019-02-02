@@ -23,6 +23,7 @@ export default class Player extends React.Component {
   }
 
   // 这个组件一旦创建就不再更新
+  // TODO 寻找一种更好的实现
   shouldComponentUpdate(nextProps) {
     const { isPlaying } = this.props;
     const { isPlaying: willBePlaying } = nextProps;

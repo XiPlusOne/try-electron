@@ -25,7 +25,7 @@ describe('Rod component', () => {
     };
     shallow(<Rod painter={spyPainter} />);
 
-    expect(painter.paint.called).toBe(true);
+    expect(spyPainter.paint.called).toBe(true);
   });
 
   it('should canvas should has a class named on if rod is on', () => {

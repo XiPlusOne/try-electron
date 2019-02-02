@@ -3,23 +3,27 @@
 exports[`reducers discPlayer should handle DISC_START_SPIN 1`] = `
 Object {
   "isDiscSpinning": true,
+  "isRodOn": false,
 }
 `;
 
 exports[`reducers discPlayer should handle DISC_STOP_SPIN 1`] = `
 Object {
   "isDiscSpinning": false,
+  "isRodOn": false,
 }
 `;
 
 exports[`reducers discPlayer should handle ROD_OFF 1`] = `
 Object {
+  "isDiscSpinning": false,
   "isRodOn": false,
 }
 `;
 
 exports[`reducers discPlayer should handle ROD_ON 1`] = `
 Object {
+  "isDiscSpinning": false,
   "isRodOn": true,
 }
 `;

@@ -1,4 +1,5 @@
 // @flow
+import { combineReducers } from 'redux';
 import {
   DISC_START_SPIN,
   DISC_STOP_SPIN,
@@ -7,40 +8,29 @@ import {
 } from '../actions/discPlayer';
 import type { Action } from './types';
 
-type State = {
-  isDiscSpinning: boolean,
-  isRodOn: boolean
-};
-
-export default function discPlayer(
-  state: State = {
-    isDiscSpinning: false,
-    isRodOn: false
-  },
-  action: Action
-) {
+function isDiscSpinning(state: boolean = false, action: Action) {
   switch (action.type) {
     case DISC_START_SPIN:
-      return {
-        ...state,
-        isDiscSpinning: true
-      };
+      return true;
     case DISC_STOP_SPIN:
-      return {
-        ...state,
-        isDiscSpinning: false
-      };
-    case ROD_ON:
-      return {
-        ...state,
-        isRodOn: true
-      };
-    case ROD_OFF:
-      return {
-        ...state,
-        isRodOn: false
-      };
+      return false;
     default:
       return state;
   }
 }
+
+function isRodOn(state: boolean = false, action: Action) {
+  switch (action.type) {
+    case ROD_ON:
+      return true;
+    case ROD_OFF:
+      return false;
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({
+  isDiscSpinning,
+  isRodOn
+});
