@@ -25,19 +25,17 @@ export default class PlayerControl extends React.PureComponent {
     const { playing } = this.props;
 
     return (
-      <>
-        <div className={styles.player}>
-          <b className={`${styles.switch} ${styles.reverse}`} />
-          <button
-            type="button"
-            onClick={this.onToggle}
-            className={`${styles.toggle} ${
-              playing ? styles.playing : styles.paused
-            }`}
-          />
-          <b className={styles.switch} />
-        </div>
-      </>
+      <div className={styles.player}>
+        <b className={`${styles.switch} ${styles.reverse}`} />
+        <button
+          type="button"
+          onClick={this.onToggle}
+          className={`${styles.toggle} ${
+            playing ? styles.playing : styles.paused
+          }`}
+        />
+        <b className={styles.switch} />
+      </div>
     );
   }
 }

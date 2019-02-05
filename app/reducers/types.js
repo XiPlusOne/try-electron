@@ -1,11 +1,14 @@
 import type { Dispatch as ReduxDispatch, Store as ReduxStore } from 'redux';
 
-export type counterStateType = {
-  +counter: number
+export type StateType = {
+  discPlayer: {
+    isDiscSpinning: boolean,
+    isDiscSpinning: boolean
+  }
 };
 
 export type Action = {
-  +type: string
+  type: string
 };
 
 export type GetState = () => counterStateType;
