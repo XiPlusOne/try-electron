@@ -1,6 +1,6 @@
 import { spy } from 'sinon';
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
 import Rod from '../../app/components/Rod';
@@ -23,9 +23,10 @@ describe('Rod component', () => {
     const spyPainter = {
       paint: spy()
     };
-    shallow(<Rod painter={spyPainter} />);
+    const component = mount(<Rod painter={spyPainter} />);
 
     expect(spyPainter.paint.called).toBe(true);
+    component.unmount();
   });
 
   it('should canvas should has a class named on if rod is on', () => {

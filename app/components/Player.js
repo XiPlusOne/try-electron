@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 
 type Props = {
@@ -5,26 +6,27 @@ type Props = {
   isPlaying: boolean
 };
 
-export default class Player extends React.Component {
-  props: Props;
+export default class Player extends React.Component<Props> {
+  refAudio: $Call<typeof React.createRef>;
 
   constructor(props: Props) {
     super(props);
 
     this.refAudio = React.createRef();
-    this.playMusic = this.playMusic.bind(this);
-    this.pauseMusic = this.pauseMusic.bind(this);
   }
 
   componentDidMount() {
     const audioContext = new AudioContext();
-    const track = audioContext.createMediaElementSource(this.refAudio.current);
-    track.connect(audioContext.destination);
+    const { current } = this.refAudio;
+    if (current) {
+      const track = audioContext.createMediaElementSource(current);
+      track.connect(audioContext.destination);
+    }
   }
 
   // 这个组件一旦创建就不再更新
   // TODO 寻找一种更好的实现
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: Props) {
     const { isPlaying } = this.props;
     const { isPlaying: willBePlaying } = nextProps;
 
@@ -38,13 +40,19 @@ export default class Player extends React.Component {
     return false;
   }
 
-  playMusic() {
-    this.refAudio.current.play();
-  }
+  playMusic = () => {
+    const { current } = this.refAudio;
+    if (current) {
+      current.play();
+    }
+  };
 
-  pauseMusic() {
-    this.refAudio.current.pause();
-  }
+  pauseMusic = () => {
+    const { current } = this.refAudio;
+    if (current) {
+      current.pause();
+    }
+  };
 
   render() {
     const { onMusicEnd } = this.props;

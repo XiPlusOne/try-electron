@@ -226,6 +226,7 @@
     "husky": "^1.1.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^23.6.0",
+    "jsdom": "^13.2.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "lint-staged": "^8.1.0",
@@ -244,6 +245,7 @@
     "stylelint": "^9.8.0",
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
+    "svg-inline-loader": "^0.8.0",
     "terser-webpack-plugin": "^1.1.0",
     "testcafe": "^0.23.2",
     "testcafe-browser-provider-electron": "^0.0.6",
@@ -255,8 +257,7 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "webpack-merge": "^4.1.4",
-    "yarn": "^1.12.3",
-    "svg-inline-loader": "^0.8.0"
+    "yarn": "^1.12.3"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.5.0",

@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import Rod from './Rod';
 import createPainter from '../utils/rodPainter';
@@ -20,18 +21,8 @@ type Props = {
 
 // todo 进度条功能
 // todo 从磁盘读取音轨并播放，同时可以提取歌词、封面等信息（如果可能做到的话）
-export default class DiscPlayer extends React.PureComponent {
-  props: Props;
-
-  constructor(props: Props) {
-    super(props);
-
-    this.toggleRunning = this.toggleRunning.bind(this);
-    this.onRodOn = this.onRodOn.bind(this);
-    this.musicEnd = this.musicEnd.bind(this);
-  }
-
-  toggleRunning() {
+export default class DiscPlayer extends React.PureComponent<Props> {
+  toggleRunning = () => {
     const { isRodOn, rodOn, rodOff, discStopSpin } = this.props;
 
     if (isRodOn) {
@@ -41,30 +32,30 @@ export default class DiscPlayer extends React.PureComponent {
     } else {
       rodOn();
     }
-  }
+  };
 
-  musicEnd() {
+  musicEnd = () => {
     const { rodOff, discStopSpin } = this.props;
 
     rodOff();
     discStopSpin();
-  }
+  };
 
-  onRodOn() {
+  onRodOn = () => {
     const { discStartSpin } = this.props;
 
     discStartSpin();
-  }
+  };
 
   render() {
     const { isDiscSpinning, isRodOn } = this.props;
+    const title =
+      "Baldur's Gate Enhanced Edition Official Soundtrack - 01. Main Theme";
 
     return (
       <div className={styles.container}>
         <header>
-          <span>
-            Baldur's Gate Enhanced Edition Official Soundtrack - 01. Main Theme
-          </span>
+          <span>{title}</span>
           <Rod
             // todo 这里的变化应该上提
             isRodOn={isRodOn}

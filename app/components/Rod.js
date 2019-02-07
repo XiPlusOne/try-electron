@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import styles from './Rod.less';
 
@@ -5,14 +6,14 @@ type Props = {
   painter: {
     paint: HTMLCanvasElement => void
   },
-  style?: Object,
+  style?: {},
   isRodOn?: boolean,
-  rodOnCallback?: () => void,
-  rodOffCallback?: () => void
+  rodOnCallback?: ?() => void,
+  rodOffCallback?: ?() => void
 };
 
-export default class Rod extends React.PureComponent {
-  props: Props;
+export default class Rod extends React.PureComponent<Props> {
+  refCanvas: $Call<typeof React.createRef>;
 
   static defaultProps = {
     style: null,
@@ -21,20 +22,21 @@ export default class Rod extends React.PureComponent {
     rodOffCallback: null
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.refCanvas = React.createRef();
-    this.onTransitionEnd = this.onTransitionEnd.bind(this);
   }
 
   componentDidMount() {
     const { painter } = this.props;
-
-    painter.paint(this.refCanvas.current);
+    const { current } = this.refCanvas;
+    if (current) {
+      painter.paint(current);
+    }
   }
 
-  onTransitionEnd() {
+  onTransitionEnd = () => {
     const { isRodOn, rodOnCallback, rodOffCallback } = this.props;
 
     if (typeof rodOnCallback === 'function' && isRodOn) {
@@ -44,7 +46,7 @@ export default class Rod extends React.PureComponent {
     if (typeof rodOffCallback === 'function' && !isRodOn) {
       rodOffCallback();
     }
-  }
+  };
 
   render() {
     const { isRodOn, style } = this.props;

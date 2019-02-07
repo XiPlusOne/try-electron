@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import styles from './PlayerControl.less';
 
@@ -6,20 +7,12 @@ type Props = {
   onToggleCallback: () => void
 };
 
-export default class PlayerControl extends React.PureComponent {
-  props: Props;
-
-  constructor(props) {
-    super(props);
-
-    this.onToggle = this.onToggle.bind(this);
-  }
-
-  onToggle() {
+export default class PlayerControl extends React.PureComponent<Props> {
+  onToggle = () => {
     const { onToggleCallback } = this.props;
 
     if (typeof onToggleCallback === 'function') onToggleCallback();
-  }
+  };
 
   render() {
     const { playing } = this.props;
