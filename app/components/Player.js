@@ -6,7 +6,7 @@ type Props = {
   isPlaying: boolean
 };
 
-export default class Player extends React.Component<Props> {
+export default class Player extends React.PureComponent<Props> {
   refAudio: $Call<typeof React.createRef>;
 
   constructor(props: Props) {
@@ -24,20 +24,16 @@ export default class Player extends React.Component<Props> {
     }
   }
 
-  // 这个组件一旦创建就不再更新
-  // TODO 寻找一种更好的实现
-  shouldComponentUpdate(nextProps: Props) {
+  componentDidUpdate(prevProps: Props) {
     const { isPlaying } = this.props;
-    const { isPlaying: willBePlaying } = nextProps;
+    const { isPlaying: wasPlaying } = prevProps;
 
-    if (isPlaying === willBePlaying) {
-      return false;
+    if (isPlaying === wasPlaying) {
+      return;
     }
 
-    if (willBePlaying) this.playMusic();
+    if (isPlaying) this.playMusic();
     else this.pauseMusic();
-
-    return false;
   }
 
   playMusic = () => {

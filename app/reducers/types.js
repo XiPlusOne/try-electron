@@ -1,9 +1,9 @@
 import type { Dispatch as ReduxDispatch, Store as ReduxStore } from 'redux';
 
 export type StateType = {
-  discPlayer: {
-    isDiscSpinning: boolean,
-    isDiscSpinning: boolean
+  +discPlayer: {
+    +isDiscSpinning: boolean,
+    +isDiscSpinning: boolean
   }
 };
 

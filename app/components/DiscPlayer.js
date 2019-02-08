@@ -19,8 +19,8 @@ type Props = {
   isRodOn: boolean
 };
 
-// todo 进度条功能
-// todo 从磁盘读取音轨并播放，同时可以提取歌词、封面等信息（如果可能做到的话）
+// TODO 进度条功能
+// TODO 从磁盘读取音轨并播放，同时可以提取歌词、封面等信息（如果可能做到的话）
 export default class DiscPlayer extends React.PureComponent<Props> {
   toggleRunning = () => {
     const { isRodOn, rodOn, rodOff, discStopSpin } = this.props;
@@ -57,7 +57,7 @@ export default class DiscPlayer extends React.PureComponent<Props> {
         <header>
           <span>{title}</span>
           <Rod
-            // todo 这里的变化应该上提
+            // TODO 这里的变化应该上提
             isRodOn={isRodOn}
             rodOnCallback={this.onRodOn}
             style={rodStyles}

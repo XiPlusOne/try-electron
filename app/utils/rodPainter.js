@@ -1,3 +1,4 @@
+// @flow
 // todo 进行单元测试
 
 type Radian = number;
