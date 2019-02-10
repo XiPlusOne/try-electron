@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import soundTrack from '../../resources/bg.flac';
 
 type Props = {
   onMusicEnd: () => void,
@@ -55,7 +56,7 @@ export default class Player extends React.PureComponent<Props> {
 
     return (
       <audio
-        src="D:\Projects\try-electron\resources\bg.flac"
+        src={soundTrack}
         preload="auto"
         ref={this.refAudio}
         onEnded={onMusicEnd}

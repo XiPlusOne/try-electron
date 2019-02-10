@@ -1,4 +1,4 @@
-// TODO 端对端测试还有问题，先不解决
+// TODO 端对端测试时模拟点击播放按钮会被安全策略禁止导致无法完成测试
 import { ClientFunction, Selector } from 'testcafe';
 import { waitForReact } from 'testcafe-react-selectors';
 

@@ -231,6 +231,11 @@ export default merge.smart(baseConfig, {
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
         use: 'url-loader'
+      },
+      // FLAC
+      {
+        test: /\.flac$/,
+        use: 'file-loader'
       }
     ]
   },
