@@ -1,13 +1,13 @@
 .equilateral-triangle(@height) {
-  @topsize : sqrt(pow(@height / 3 * 2, 2) - pow(@height / 3, 2));
+  @borderTopSize: sqrt(pow(@height / 3 * 2, 2) - pow(@height / 3, 2));
 
   width: 0;
   height: 0;
   display: block;
   border-left: @height solid #fff;
-  border-top: @topsize solid transparent;
+  border-top: @borderTopSize solid transparent;
   border-right: @height solid transparent;
-  border-bottom: @topsize solid transparent;
+  border-bottom: @borderTopSize solid transparent;
 }
 
 .player {

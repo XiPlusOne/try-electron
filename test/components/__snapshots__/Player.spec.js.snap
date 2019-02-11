@@ -4,7 +4,7 @@ exports[`Player component should match exact snapshot 1`] = `
 <audio
   onEnded={[Function]}
   preload="auto"
-  src="D:\\\\Projects\\\\try-electron\\\\resources\\\\bg.flac"
+  src="test-file-stub"
 >
   <track
     default={true}
