@@ -38,6 +38,8 @@ $ yarn package
 - [eslint](https://eslint.org/) 优化代码书写的工具
 - [stylelint](https://www.npmjs.com/package/stylelint) 优化 CSS 书写的工具
 - [prettier](https://prettier.io/) 美化代码格式的工具
+- [husky](https://www.npmjs.com/package/husky) 可以取消向 git 提交的工具
+- [lint-staged](https://www.npmjs.com/package/lint-staged) 向 git 提交代码前进行 lint 的工具
 - [jest](https://jestjs.io/) 测试工具
 - [testcafe](https://devexpress.github.io/testcafe/) 端对端测试的工具
 - [testcafe-live](https://www.npmjs.com/package/testcafe-live) testcafe 的一个观察模式工具
@@ -99,9 +101,9 @@ $ cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.con
 
 这里会检测是否存在 dll，如果不存在就 execSync build-dll 命令。在 devServer 的 before 配置下会先 spawn 一个子进程跑 start-main-dev 命令。entry 是一个数组，分别是：
 
-- react-hot-loader/patch ：根据环境变量选择导出生产或开发用版本
-- webpack-dev-server/client?http://localhost:${port}/ ：在客户端初始化 webpack-dev-server 的代码，调用./socket.js 进行前后端通信，其内容我瞟了一眼，应该是使用了[sockjs-client](https://www.npmjs.com/package/sockjs-client)这个工具
-- webpack/hot/only-dev-server ：在客户端监听 HMR
+- [react-hot-loader/patch](https://github.com/gaearon/react-hot-loader/blob/master/src/index.dev.js) ：根据环境变量选择导出生产或开发用版本，会直接修改 React 和 ReactDOM 对象
+- [webpack-dev-server/client?http://localhost:\${port}/](https://github.com/webpack/webpack-dev-server/blob/master/client-src/default/index.js) ：在客户端初始化 webpack-dev-server 的代码，调用./socket.js 进行前后端通信，其内容我瞟了一眼，应该是使用了[sockjs-client](https://www.npmjs.com/package/sockjs-client)这个工具
+- [webpack/hot/only-dev-server](https://github.com/webpack/webpack/blob/master/hot/only-dev-server.js) ：在客户端监听 HMR
 - ./app/index.js
 
 我不清楚上方为什么要这么配置，根据 webpack 文档，似乎仅需要最后一个 entry 就够了。但是当我去掉前三条 entry 时，虽然 HMR 的功能没有问题，但是每次更新时 shell 就会打印出如下错误：
@@ -262,14 +264,6 @@ $ yarn build && electron-builder build --publish never
 
 打包 electron 桌面应用。
 
-### package-all
-
-```bash
-$ yarn build && electron-builder build -mwl
-```
-
-打包
-
 ### postinstall
 
 ```bash
@@ -284,6 +278,70 @@ $ yarn flow-typed && electron-builder install-app-deps package.json && yarn buil
 $ lint-staged
 ```
 
+在 git 提交代码时对提交的代码进行 lint 及 prettier 操作。
+
+## 项目本体
+
+业务逻辑集中在./app 目录下，使用 [React](https://reactjs.org/) 框架，配合 [Redux](https://redux.js.org/) 进行状态管理。使用 [react-redux](https://react-redux.js.org/) 进行两者的连接，使用 [react-router](https://www.npmjs.com/package/react-router) 进行路由管理。这是当下非常流行的一个组合。
+
+在生产模式下，redux 使用了[connected-react-router](https://www.npmjs.com/package/connected-react-router)和[redux-thunk](https://www.npmjs.com/package/redux-thunk)两个中间件，前者用于连接 react-router，后者是 redux 官网推荐使用用来处理异步动作的工具（虽然目前尚未用到但是迟早会用）。
+
+而在开发模式下，除了以上两个中间件之外，还加装了[redux-logger](https://www.npmjs.com/package/redux-logger)中间件用来在控制台输出动作信息。这个中间件在开发中应属标配。除此之外，对 Redux DevTools Extension 也有检测，如果发现则使用其提供的 compose 代替 redux 提供的 compose 连接中间件。代码如下：
+
+```javascript
+// If Redux DevTools Extension is installed use it, otherwise use Redux compose
+/* eslint-disable no-underscore-dangle */
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // Options: http://extension.remotedev.io/docs/API/Arguments.html
+      actionCreators
+    })
+  : compose;
+/* eslint-enable no-underscore-dangle */
+```
+
+## babel
+
+使用 [Babel](https://babeljs.io/) 进行了语法编译，使源码能在目标浏览器上运行（即 Electron）。配置文件是./babel.config.js。
+
+presets 使用了：
+
+- [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env) 标配。目标设为当前使用版本的 Electron，版本号直接从 electron/package.json 读取，这样做是为了尽量利用运行环境已有的功能。
+- [@babel/preset-flow](https://www.npmjs.com/package/@babel/preset-flow) 实现对 Flow 的编译。内部引入了[@babel/plugin-transform-flow-strip-types](https://www.npmjs.com/package/@babel/plugin-transform-flow-strip-types)插件把 Flow 相关的语法去掉了。
+- [@babel/preset-react](https://www.npmjs.com/package/@babel/preset-react) 囊括了 react 相关的插件。
+
+其他插件清单：
+
+- [@babel/plugin-proposal-function-bind](https://babeljs.io/docs/en/next/babel-plugin-proposal-function-bind.html) 函数 bind 的语法糖
+- [@babel/plugin-proposal-export-default-from](https://babeljs.io/docs/en/next/babel-plugin-proposal-export-default-from.html) 导入模块默认值的语法支持
+- [@babel/plugin-proposal-logical-assignment-operators](https://babeljs.io/docs/en/next/babel-plugin-proposal-logical-assignment-operators.html) 逻辑赋值操作符，详情见[这里](https://github.com/tc39/proposal-logical-assignment)
+- [@babel/plugin-proposal-optional-chaining](https://babeljs.io/docs/en/next/babel-plugin-proposal-optional-chaining.html) 用?.来方便的访问嵌套层级较深的对象属性
+- [@babel/plugin-proposal-pipeline-operator](https://babeljs.io/docs/en/next/babel-plugin-proposal-pipeline-operator.html) 以一种优雅的、管道式的方式连续调用函数
+- [@babel/plugin-proposal-nullish-coalescing-operator](https://babeljs.io/docs/en/next/babel-plugin-proposal-nullish-coalescing-operator.html) 和@babel/plugin-proposal-optional-chaining 配合使用，可以设置默认值
+- [@babel/plugin-proposal-do-expressions](https://babeljs.io/docs/en/next/babel-plugin-proposal-do-expressions.html) 可以使用 do 语法进行复杂的赋值操作
+- [@babel/plugin-proposal-decorators](https://babeljs.io/docs/en/next/babel-plugin-proposal-decorators.html) 可以使用类属性定义、私有属性和方法、装饰器等语法。装饰器可以用来支持框架或库的一些行为，大幅缩减代码量。
+- [@babel/plugin-proposal-function-sent](https://babeljs.io/docs/en/next/babel-plugin-proposal-function-sent.html) 使用 function.sent 访问迭代器对象的 next 方法被调用时传入的参数。这样的好处是可以访问到第一次调用 next 时传入的参数。详情见[这里](https://github.com/allenwb/ESideas/blob/master/Generator%20metaproperty.md#the-proposal)
+- [@babel/plugin-proposal-export-namespace-from](https://babeljs.io/docs/en/next/babel-plugin-proposal-export-namespace-from.html) export \* as someIdentifier from "someModule";的语法支持
+- [@babel/plugin-proposal-numeric-separator](https://babeljs.io/docs/en/next/babel-plugin-proposal-numeric-separator.html) 支持 1_000_000_000_000 这样的数字写法，比较适合西方人
+- [@babel/plugin-proposal-throw-expressions](https://babeljs.io/docs/en/next/babel-plugin-proposal-throw-expressions.html) 可以在表达式级别抛出错误
+- [@babel/plugin-syntax-dynamic-import](https://babeljs.io/docs/en/next/babel-plugin-syntax-dynamic-import.html) 使用 import()语法动态引入模块
+- [@babel/plugin-syntax-import-meta](https://babeljs.io/docs/en/next/babel-plugin-syntax-import-meta.html) 使用 import.meta 语法，详情见[这里](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import.meta)
+- [@babel/plugin-proposal-class-properties](https://babeljs.io/docs/en/next/babel-plugin-proposal-class-properties.html) 可以使用类属性定义以及静态类属性定义
+- [@babel/plugin-proposal-json-strings](https://babeljs.io/docs/en/next/babel-plugin-proposal-json-strings.html) JSON 字符串比 JS 字符串多支持两个字符，这个插件替 JS 字符串增加了这个支持，使 JSON 和 JS 字符串完全一致
+
+开发模式独占的插件清单
+
+- [react-hot-loader/babel](https://github.com/gaearon/react-hot-loader/blob/master/src/babel.dev.js) react-hot-loader 自带的 babel 插件，会帮你注入一些代码
+
+生产模式独占的插件清单
+
+- [babel-plugin-dev-expression](https://www.npmjs.com/package/babel-plugin-dev-expression) 可以像 React 一样使用\_\_DEV\_\_判断是否开发环境的小插件
+- [@babel/plugin-transform-react-constant-elements](https://babeljs.io/docs/en/next/babel-plugin-transform-react-constant-elements.html) 尽量提升 React Element 的作用域，换句话说，尽可能使每次 render 返回同一个对象
+- [@babel/plugin-transform-react-inline-elements](https://babeljs.io/docs/en/next/babel-plugin-transform-react-inline-elements.html) 配合@babel/plugin-transform-runtime 使用可以尽可能少的进行 polyfill
+- [babel-plugin-transform-react-remove-prop-types](https://www.npmjs.com/package/babel-plugin-transform-react-remove-prop-types) 在生产模式下移除 prop-types 检查
+
+以上都是 electron-react-boilerplate 预装的。
+
 ## release
 
-使用 electron-builder
+待补完

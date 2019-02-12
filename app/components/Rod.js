@@ -1,4 +1,5 @@
 // @flow
+// TODO 尝试可以简单切换使用纯DIV+CSS或Canvas实现
 import React from 'react';
 import styles from './Rod.less';
 
