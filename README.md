@@ -335,12 +335,20 @@ presets 使用了：
 
 生产模式独占的插件清单
 
-- [babel-plugin-dev-expression](https://www.npmjs.com/package/babel-plugin-dev-expression) 可以像 React 一样使用\_\_DEV\_\_判断是否开发环境的小插件
+- [babel-plugin-dev-expression](https://www.npmjs.com/package/babel-plugin-dev-expression) 可以像 React 一样使用\_\_DEV\_\_判断是否开发环境的小插件，生产模式下会去掉
 - [@babel/plugin-transform-react-constant-elements](https://babeljs.io/docs/en/next/babel-plugin-transform-react-constant-elements.html) 尽量提升 React Element 的作用域，换句话说，尽可能使每次 render 返回同一个对象
 - [@babel/plugin-transform-react-inline-elements](https://babeljs.io/docs/en/next/babel-plugin-transform-react-inline-elements.html) 配合@babel/plugin-transform-runtime 使用可以尽可能少的进行 polyfill
 - [babel-plugin-transform-react-remove-prop-types](https://www.npmjs.com/package/babel-plugin-transform-react-remove-prop-types) 在生产模式下移除 prop-types 检查
 
 以上都是 electron-react-boilerplate 预装的。
+
+## 测试
+
+测试相关文件在./test 里。使用了 [jest](https://jestjs.io/en/) + [enzyme](https://airbnb.io/enzyme/) + [sinon](https://sinonjs.org/) 的组合。
+
+## lint
+
+使用[eslint](https://eslint.org/)和[stylelint](https://www.npmjs.com/package/stylelint)。在配置文件中安装了种种规则，暂不细表。
 
 ## release
 
