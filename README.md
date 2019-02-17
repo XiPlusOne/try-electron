@@ -77,13 +77,21 @@ $ cross-env NODE_ENV=production webpack --config ./configs/webpack.config.render
 
 entry 是 ./app/index.js output 是 ./app/dist/renderer.prod.js。刚才在主进程中渲染的 app.html 会去请求此文件。这一步已经隔离了 electron 这个环境，之后都是纯 web 开发。
 
-### build-analyzer
+### build-web
 
 ```bash
-$ cross-env OPEN_ANALYZER=true yarn build-renderer
+$ rimraf ./app/dist-web/**.* && cross-env NODE_ENV=production OPEN_ANALYZER=true webpack --config ./configs/webpack.config.web.prod.babel.js --colors
 ```
 
-用来视图化各个包的尺寸，方便优化。
+进行一次目标为 web 端的打包，重视资源尺寸，打包完毕后会打开资源分析工具
+
+### browse
+
+```bash
+$ http-server ./app/dist-web/ -o
+```
+
+在浏览器中查看 build-web 命令打的包
 
 ### dev
 

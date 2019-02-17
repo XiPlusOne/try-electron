@@ -2,6 +2,7 @@
 <PROJECT_ROOT>/app/main.prod.js
 <PROJECT_ROOT>/app/main.prod.js.map
 <PROJECT_ROOT>/app/dist/.*
+<PROJECT_ROOT>/app/dist-web/.*
 <PROJECT_ROOT>/resources/.*
 <PROJECT_ROOT>/node_modules/webpack-cli
 <PROJECT_ROOT>/release/.*

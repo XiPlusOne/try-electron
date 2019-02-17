@@ -16,16 +16,19 @@ export default class Player extends React.PureComponent<Props> {
     this.refAudio = React.createRef();
   }
 
-  componentDidMount() {
-    const audioContext = new AudioContext();
-    const { current } = this.refAudio;
-    if (current) {
-      const track = audioContext.createMediaElementSource(current);
-      track.connect(audioContext.destination);
-    }
-  }
-
   componentDidUpdate(prevProps: Props) {
+    if (!this.initiatated) {
+      // Chrome浏览器上必须等待用户点击后才可以初始化
+      this.initiatated = true;
+
+      const audioContext = new AudioContext();
+      const { current } = this.refAudio;
+      if (current) {
+        const track = audioContext.createMediaElementSource(current);
+        track.connect(audioContext.destination);
+      }
+    }
+
     const { isPlaying } = this.props;
     const { isPlaying: wasPlaying } = prevProps;
 
@@ -36,6 +39,8 @@ export default class Player extends React.PureComponent<Props> {
     if (isPlaying) this.playMusic();
     else this.pauseMusic();
   }
+
+  #initiatated = false;
 
   playMusic = () => {
     const { current } = this.refAudio;

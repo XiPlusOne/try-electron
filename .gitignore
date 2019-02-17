@@ -1,5 +1,5 @@
 Skip to content
- 
+
 Search or jump to…
 
 Pull requests
@@ -14,7 +14,7 @@ electron-react-boilerplate/.gitignore
 0ac402c  on 30 Oct 2018
 @aguynamedben aguynamedben Remove app/node_modules from .gitignore (#1890)
 @amilajack @chentsulin @zeevl @VladimirPal @xwartz @ritz078 @dustintownsend @jhen0409 @aguynamedben @AlexFrazer
-     
+
 52 lines (40 sloc)  812 Bytes
 # Logs
 logs
@@ -61,6 +61,7 @@ app/renderer.prod.js.map
 app/style.css
 app/style.css.map
 dist
+dist-web
 dll
 main.js
 main.js.map
