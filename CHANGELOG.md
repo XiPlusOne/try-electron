@@ -11,11 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - 项目采用的全部 eslint 规则在 readme 中记录备忘
 - 自动发布 release
-- 设法解析提取音轨文件的信息（封面，时长等）
+- 设法解析提取更多音轨文件的信息（封面，时长，以及其他免费文件格式等）
 
 ### Changed
 
 - 从 flow 切换成 typeScript
+
+## [0.3.0] - 2019-02-21
+
+### Added
+
+- 现在可以解码 flac 文件，提取封面
 
 ## [0.2.0] - 2019-02-17
 

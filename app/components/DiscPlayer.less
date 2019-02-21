@@ -1,19 +1,16 @@
 .container {
-  &::before {
-    content: '';
-    display: block;
-    background: url('../../resources/bg.jpg') no-repeat;
-    background-size: 100% 100%;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: -1;
-    filter: blur(10px);
-  }
+  height: 100%;
+  background: brown;
+  background-image: repeating-linear-gradient(
+    30deg,
+    hsla(0, 0%, 100%, 0.1),
+    hsla(0, 0%, 100%, 0.1) 15px,
+    transparent 0,
+    transparent 30px
+  );
 
   header {
+    height: 35px;
     line-height: 35px;
     text-align: center;
     border-bottom: 0.5px solid #ccc;

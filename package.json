@@ -1,7 +1,7 @@
 {
   "name": "try-electron",
   "productName": "TryElectron",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "使用electron-react-boilerplate玩一下Electron",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -244,10 +244,12 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.5.0",
+    "av": "^0.4.9",
     "devtron": "^1.4.0",
     "electron-debug": "^2.0.0",
     "electron-log": "^2.2.17",
     "electron-updater": "^3.2.3",
+    "flac.js": "^0.2.1",
     "history": "^4.7.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",

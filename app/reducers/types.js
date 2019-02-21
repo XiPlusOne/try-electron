@@ -3,7 +3,10 @@ import type { Dispatch as ReduxDispatch, Store as ReduxStore } from 'redux';
 export type StateType = {
   +discPlayer: {
     +isDiscSpinning: boolean,
-    +isDiscSpinning: boolean
+    +isRodOn: boolean,
+    +discPic: string,
+    +soundTrack: string,
+    +title: string
   }
 };
 

@@ -1,10 +1,10 @@
 // @flow
 import React from 'react';
-import soundTrack from '../../resources/bg.flac';
 
 type Props = {
   onMusicEnd: () => void,
-  isPlaying: boolean
+  isPlaying: boolean,
+  soundTrack: string
 };
 
 export default class Player extends React.PureComponent<Props> {
@@ -40,7 +40,7 @@ export default class Player extends React.PureComponent<Props> {
     else this.pauseMusic();
   }
 
-  #initiatated = false;
+  initiatated = false;
 
   playMusic = () => {
     const { current } = this.refAudio;
@@ -57,7 +57,7 @@ export default class Player extends React.PureComponent<Props> {
   };
 
   render() {
-    const { onMusicEnd } = this.props;
+    const { onMusicEnd, soundTrack } = this.props;
 
     return (
       <audio

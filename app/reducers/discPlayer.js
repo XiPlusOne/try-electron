@@ -4,7 +4,10 @@ import {
   DISC_START_SPIN,
   DISC_STOP_SPIN,
   ROD_ON,
-  ROD_OFF
+  ROD_OFF,
+  CHANGE_DISC,
+  CHANGE_SOUNDTRACK,
+  CHANGE_TITLE
 } from '../actions/discPlayer';
 import type { Action } from './types';
 
@@ -30,7 +33,37 @@ function isRodOn(state: boolean = false, action: Action) {
   }
 }
 
+function discPic(state: string = '', action: Action) {
+  switch (action.type) {
+    case CHANGE_DISC:
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+function soundTrack(state: string = '', action: Action) {
+  switch (action.type) {
+    case CHANGE_SOUNDTRACK:
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+function title(state: string = '', action: Action) {
+  switch (action.type) {
+    case CHANGE_TITLE:
+      return action.data;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   isDiscSpinning,
-  isRodOn
+  isRodOn,
+  discPic,
+  soundTrack,
+  title
 });

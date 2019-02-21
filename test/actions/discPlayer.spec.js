@@ -16,4 +16,16 @@ describe('actions', () => {
   it('should rodOff should create rodOff action', () => {
     expect(actions.rodOff()).toMatchSnapshot();
   });
+
+  it('should changeDisc should create changeDisc action', () => {
+    expect(actions.changeDisc('233')).toMatchSnapshot();
+  });
+
+  it('should changeSoundTrack should create changeSoundTrack action', () => {
+    expect(actions.changeSoundTrack('233')).toMatchSnapshot();
+  });
+
+  it('should changeTitle should create changeTitle action', () => {
+    expect(actions.changeTitle('233')).toMatchSnapshot();
+  });
 });

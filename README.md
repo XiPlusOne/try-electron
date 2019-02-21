@@ -1,5 +1,9 @@
 使用 [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme) 玩一下 [Electron](https://electronjs.org/)，姑且粗略模仿了一下网易云音乐的唱片机。
 
+可以点击左下角上传音轨文件，上传后点击开始播放。目前仅支持 flac 文件。
+
+flac 文件上传时我会对其进行解码，目前仅提取了封面，以后会扩展更多功能。
+
 ## 安装
 
 ```bash

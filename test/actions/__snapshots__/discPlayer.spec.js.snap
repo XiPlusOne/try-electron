@@ -1,5 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`actions should changeDisc should create changeDisc action 1`] = `
+Object {
+  "data": "233",
+  "type": "CHANGE_DISC",
+}
+`;
+
+exports[`actions should changeSoundTrack should create changeSoundTrack action 1`] = `
+Object {
+  "data": "233",
+  "type": "CHANGE_SOUNDTRACK",
+}
+`;
+
+exports[`actions should changeTitle should create changeTitle action 1`] = `
+Object {
+  "data": "233",
+  "type": "CHANGE_TITLE",
+}
+`;
+
 exports[`actions should discStartSpin should create discStartSpin action 1`] = `
 Object {
   "type": "DISC_START_SPIN",
