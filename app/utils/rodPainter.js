@@ -39,7 +39,7 @@ type Config = {
 export default function createPainter({
   canvasWidth = 600,
   canvasHeight = 250,
-  radian = Math.PI / 4,
+  radian = Math.PI / 3.5,
   rodFirstSectionLength = 100,
   rodSecondSectionLength = 60,
   rodWidth = 7.5,

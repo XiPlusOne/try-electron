@@ -152,7 +152,10 @@ export default class DiscPlayer extends React.PureComponent<Props> {
               />
             ) : null}
           </div>
-          <input type="file" onChange={this.onChangeDisc} />
+
+          <label htmlFor="iconUpload" className={styles['icon-up']}>
+            <input type="file" id="iconUpload" onChange={this.onChangeDisc} />
+          </label>
         </main>
 
         <footer>

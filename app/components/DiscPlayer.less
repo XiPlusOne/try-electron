@@ -18,7 +18,7 @@
   }
 
   main {
-    margin-top: 115px;
+    margin-top: 85px;
 
     .inner {
       margin: 0 auto;
@@ -67,6 +67,21 @@
 
       &.spinning {
         animation-play-state: running;
+      }
+    }
+
+    .icon-up {
+      position: absolute;
+      left: 30px;
+      bottom: 100px;
+      display: block;
+      cursor: pointer;
+      width: 64px;
+      height: 64px;
+      background: url(../../resources/icon-up.svg);
+
+      input[type='file'] {
+        visibility: hidden;
       }
     }
   }
