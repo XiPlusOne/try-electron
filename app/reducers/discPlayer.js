@@ -7,7 +7,9 @@ import {
   ROD_OFF,
   CHANGE_DISC,
   CHANGE_SOUNDTRACK,
-  CHANGE_TITLE
+  CHANGE_TITLE,
+  CHANGE_DURATION,
+  CHANGE_CURRENT_TIME
 } from '../actions/discPlayer';
 import type { Action } from './types';
 
@@ -60,10 +62,30 @@ function title(state: string = '', action: Action) {
   }
 }
 
+function duration(state: number = 0, action: Action) {
+  switch (action.type) {
+    case CHANGE_DURATION:
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+function currentTime(state: number = 0, action: Action) {
+  switch (action.type) {
+    case CHANGE_CURRENT_TIME:
+      return action.data;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   isDiscSpinning,
   isRodOn,
   discPic,
   soundTrack,
-  title
+  title,
+  duration,
+  currentTime
 });

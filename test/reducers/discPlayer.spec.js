@@ -6,7 +6,9 @@ import {
   ROD_OFF,
   CHANGE_DISC,
   CHANGE_SOUNDTRACK,
-  CHANGE_TITLE
+  CHANGE_TITLE,
+  CHANGE_DURATION,
+  CHANGE_CURRENT_TIME
 } from '../../app/actions/discPlayer';
 
 describe('reducers', () => {
@@ -54,6 +56,21 @@ describe('reducers', () => {
     it('should handle CHANGE_TITLE', () => {
       expect(
         discPlayer({ title: '' }, { type: CHANGE_TITLE, data: '233' })
+      ).toMatchSnapshot();
+    });
+
+    it('should handle CHANGE_DURATION', () => {
+      expect(
+        discPlayer({ duration: 0 }, { type: CHANGE_DURATION, data: 1000 })
+      ).toMatchSnapshot();
+    });
+
+    it('should handle CHANGE_CURRENT_TIME', () => {
+      expect(
+        discPlayer(
+          { currentTime: 0 },
+          { type: CHANGE_CURRENT_TIME, data: 1000 }
+        )
       ).toMatchSnapshot();
     });
 

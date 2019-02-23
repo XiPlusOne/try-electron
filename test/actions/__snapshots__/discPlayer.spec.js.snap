@@ -1,9 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`actions should changeCurrentTime should create changeCurrentTime action 1`] = `
+Object {
+  "data": 1000,
+  "type": "CHANGE_CURRENT_TIME",
+}
+`;
+
 exports[`actions should changeDisc should create changeDisc action 1`] = `
 Object {
   "data": "233",
   "type": "CHANGE_DISC",
+}
+`;
+
+exports[`actions should changeDuration should create changeDuration action 1`] = `
+Object {
+  "data": 1000,
+  "type": "CHANGE_DURATION",
 }
 `;
 

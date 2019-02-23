@@ -17,6 +17,36 @@
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  position: relative;
+
+  .progress {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 40px;
+
+    .handle {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      top: -10px;
+
+      &::before {
+        content: '';
+        display: block;
+        width: 25%;
+        height: 25%;
+        background: red;
+        border-radius: 50%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
 
   .switch {
     @height: 15px;
@@ -90,6 +120,6 @@
   }
 
   to {
-    transform: rotate(1);
+    transform: scale(1);
   }
 }

@@ -6,7 +6,9 @@ export type StateType = {
     +isRodOn: boolean,
     +discPic: string,
     +soundTrack: string,
-    +title: string
+    +title: string,
+    +duration: number,
+    +currentTime: number
   }
 };
 

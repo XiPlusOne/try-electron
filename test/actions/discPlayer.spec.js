@@ -28,4 +28,12 @@ describe('actions', () => {
   it('should changeTitle should create changeTitle action', () => {
     expect(actions.changeTitle('233')).toMatchSnapshot();
   });
+
+  it('should changeDuration should create changeDuration action', () => {
+    expect(actions.changeDuration(1000)).toMatchSnapshot();
+  });
+
+  it('should changeCurrentTime should create changeCurrentTime action', () => {
+    expect(actions.changeCurrentTime(1000)).toMatchSnapshot();
+  });
 });

@@ -4,6 +4,28 @@ exports[`PlayerControl component should match exact snapshot 1`] = `
 <div
   className="player"
 >
+  <p
+    className="currentTime"
+  >
+    00:00
+  </p>
+  <div
+    className="progress"
+  >
+    <div
+      className="handle"
+      style={
+        Object {
+          "left": "0%",
+        }
+      }
+    />
+  </div>
+  <p
+    className="totleTime"
+  >
+    00:00
+  </p>
   <b
     className="switch reverse"
   />

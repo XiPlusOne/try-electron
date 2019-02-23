@@ -6,6 +6,8 @@ export const ROD_OFF = 'ROD_OFF';
 export const CHANGE_DISC = 'CHANGE_DISC';
 export const CHANGE_SOUNDTRACK = 'CHANGE_SOUNDTRACK';
 export const CHANGE_TITLE = 'CHANGE_TITLE';
+export const CHANGE_DURATION = 'CHANGE_DURATION';
+export const CHANGE_CURRENT_TIME = 'CHANGE_CURRENT_TIME';
 
 export function discStartSpin() {
   return {
@@ -49,5 +51,19 @@ export function changeTitle(title: string) {
   return {
     type: CHANGE_TITLE,
     data: title
+  };
+}
+
+export function changeDuration(duration: number) {
+  return {
+    type: CHANGE_DURATION,
+    data: duration
+  };
+}
+
+export function changeCurrentTime(currentTime: number) {
+  return {
+    type: CHANGE_CURRENT_TIME,
+    data: currentTime
   };
 }

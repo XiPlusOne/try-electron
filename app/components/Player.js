@@ -3,6 +3,8 @@ import React from 'react';
 
 type Props = {
   onMusicEnd: () => void,
+  onMetaLoad: () => void,
+  onTimeUpdate: () => void,
   isPlaying: boolean,
   soundTrack: string
 };
@@ -57,7 +59,7 @@ export default class Player extends React.PureComponent<Props> {
   };
 
   render() {
-    const { onMusicEnd, soundTrack } = this.props;
+    const { onMusicEnd, onMetaLoad, onTimeUpdate, soundTrack } = this.props;
 
     return (
       <audio
@@ -65,6 +67,8 @@ export default class Player extends React.PureComponent<Props> {
         preload="auto"
         ref={this.refAudio}
         onEnded={onMusicEnd}
+        onLoadedMetadata={onMetaLoad}
+        onTimeUpdate={onTimeUpdate}
       >
         <track default kind="captions" label="Hello World!" />
       </audio>

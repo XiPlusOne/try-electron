@@ -2,31 +2,38 @@
 import React from 'react';
 import Rod from './Rod';
 import createPainter from '../utils/rodPainter';
-import extract from '../utils/flac';
+import getDecoder from '../utils/flac';
 import PlayerControl from './PlayerControl';
 import Player from './Player';
 import styles from './DiscPlayer.less';
 
 const rodStyles = { top: 35 };
 const painter = createPainter();
+const decoder = getDecoder({
+  readData: (view: DataView, index: number) => view.getUint8(index),
+  sliceData: (view: DataView, start: number, end: number) =>
+    new DataView(view.buffer.slice(start, end))
+});
 
 type Props = {
+  isDiscSpinning: boolean,
   discStartSpin: () => void,
   discStopSpin: () => void,
+  isRodOn: boolean,
   rodOn: () => void,
   rodOff: () => void,
-  changeDisc: string => void,
-  changeSoundTrack: string => void,
-  changeTitle: string => void,
-  isDiscSpinning: boolean,
-  isRodOn: boolean,
   discPic: string,
+  changeDisc: string => void,
   soundTrack: string,
-  title: string
+  changeSoundTrack: string => void,
+  title: string,
+  changeTitle: string => void,
+  duration: number,
+  changeDuration: number => void,
+  currentTime: number,
+  changeCurrentTime: number => void
 };
 
-// TODO 进度条功能
-// TODO 从磁盘读取音轨并播放，同时可以提取歌词、封面等信息（如果可能做到的话）
 export default class DiscPlayer extends React.PureComponent<Props> {
   toggleRunning = () => {
     const { isRodOn, rodOn, rodOff, discStopSpin, discPic } = this.props;
@@ -38,6 +45,7 @@ export default class DiscPlayer extends React.PureComponent<Props> {
     } else if (discPic) {
       rodOn();
     } else {
+      // eslint-disable-next-line
       alert('请先上传音轨文件，现在只支持flac格式');
     }
   };
@@ -47,6 +55,18 @@ export default class DiscPlayer extends React.PureComponent<Props> {
 
     rodOff();
     discStopSpin();
+  };
+
+  metaLoad = (e: any) => {
+    const { changeDuration } = this.props;
+
+    changeDuration(e.target.duration);
+  };
+
+  playTimeUpdate = (e: any) => {
+    const { changeCurrentTime } = this.props;
+
+    changeCurrentTime(e.target.currentTime);
   };
 
   onRodOn = () => {
@@ -82,8 +102,8 @@ export default class DiscPlayer extends React.PureComponent<Props> {
     reader.readAsArrayBuffer(file);
 
     reader.onload = function onload(event) {
-      const bytes = new Uint8Array(event.target.result);
-      const pic = extract(bytes).pictures.filter(n => n.pictureType === 3)[0];
+      const bytes = new DataView(event.target.result);
+      const pic = decoder(bytes).pictures.filter(n => n.pictureType === 3)[0];
 
       if (!pic) {
         // 类型为3才是封面，见https://xiph.org/flac/format.html#metadata_block_picture
@@ -100,8 +120,15 @@ export default class DiscPlayer extends React.PureComponent<Props> {
   };
 
   render() {
-    const { isDiscSpinning, isRodOn, discPic, soundTrack, title } = this.props;
-    console.log(title);
+    const {
+      isDiscSpinning,
+      isRodOn,
+      discPic,
+      soundTrack,
+      title,
+      duration,
+      currentTime
+    } = this.props;
 
     return (
       <div className={styles.container}>
@@ -132,6 +159,8 @@ export default class DiscPlayer extends React.PureComponent<Props> {
           <PlayerControl
             onToggleCallback={this.toggleRunning}
             playing={isRodOn}
+            currentTime={currentTime}
+            duration={duration}
           />
         </footer>
 
@@ -139,6 +168,8 @@ export default class DiscPlayer extends React.PureComponent<Props> {
           onMusicEnd={this.musicEnd}
           isPlaying={isRodOn}
           soundTrack={soundTrack}
+          onMetaLoad={this.metaLoad}
+          onTimeUpdate={this.playTimeUpdate}
         />
       </div>
     );
