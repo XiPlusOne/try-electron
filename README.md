@@ -22,6 +22,20 @@ $ yarn dev
 $ yarn package
 ```
 
+## web 端打包
+
+```bash
+$ yarn build-web
+```
+
+## 在浏览器上查看
+
+```bash
+$ yarn browse
+```
+
+查看前必须先打包
+
 ## 命令说明
 
 在 package.json 的 scripts 中，electron-react-boilerplate 自带大量命令，我也加了少量，这里给出详细说明以备忘。
